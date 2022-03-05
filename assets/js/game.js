@@ -1,4 +1,3 @@
-// var playerName = 'Clank McKrank';
 var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
 var playerAttack = 10;
@@ -36,6 +35,10 @@ var fight = function(enemyName) {
         // check enemy's health
         if (enemyHealth <= 0) {
             window.alert(enemyName + " has died!");
+            
+            // award player money for winning
+            playerMoney = playerMoney + 20;
+
             break;
         } else {
                 window.alert(enemyName + " still has " + enemyHealth + " health left.");
