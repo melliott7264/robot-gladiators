@@ -1,4 +1,4 @@
-
+// function to generate a random number between a min and max value 
 var randomNumber = function (min, max) {
     var value = Math.floor(Math.random()*(max-min+1)+min);
 
@@ -162,6 +162,7 @@ var playerInfo = {
     },
     refillHealth: function() {
         if (this.money >= 7){
+            window.alert("Refilling player's health by 20 for 7 dollars.");
             this.health += 20;
             this.money -= 7;
         }
@@ -171,6 +172,7 @@ var playerInfo = {
     },
     upgradeAttack: function() {
         if (this.money >=7){
+            window.alert("Upgrading player's attack by 6 for 7 dollars.");
             this.attack += 6;
             this.money -= 7;
         }
@@ -194,6 +196,11 @@ var enemyInfo = [
         attack: randomNumber(10,14)
     }
 ];
+
+console.log(enemyInfo);
+console.log(enemyInfo[0]);
+console.log(enemyInfo[0].name);
+console.log(enemyInfo[0]['attack']);
 
 // start the game when the page loads
 startGame();
