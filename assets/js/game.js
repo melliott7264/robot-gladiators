@@ -41,42 +41,59 @@ var fightOrSkip = function() {
 // fight function
 var fight = function(enemy) {
 
+    // keep track of who goes first
+    var isPlayerTurn = true;
+    if (Math.random() > .5) {
+        isPlayerTurn = false;
+    }
+
     while (playerInfo.health > 0 && enemy.health > 0) {
-
-        if (fightOrSkip()){
-            // if true, leave by breaking the loop
-            break;
-        }
-        
-        // generate random damage value based on players attack power
-        var damage = randomNumber(playerInfo.attack-3, playerInfo.attack);
-        enemy.health = Math.max(0, enemy.health - damage);
-        console.log(playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health + " health remaining.");
-
-        // check enemy's health
-        if (enemy.health <= 0) {
-            window.alert(enemy.name + " has died!");
+        // check if it IS the players turn and then subtract the damage from the player's robot 
+        if (isPlayerTurn) {
+            console.log("It is " + playerInfo.name + "'s turn!");
+          
+            if (fightOrSkip()){
+                // if true, leave by breaking the loop
+                break;
+            }
             
-            // award player money for winning
-            playerInfo.money = playerInfo.money + 20;
+            // generate random damage value based on players attack power
+            var damage = randomNumber(playerInfo.attack-3, playerInfo.attack);
+            enemy.health = Math.max(0, enemy.health - damage);
+            console.log(playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health + " health remaining.");
 
-            break;
-        } else {
-                window.alert(enemy.name + " still has " + enemy.health + " health left.");
-            }
+            // check enemy's health
+            if (enemy.health <= 0) {
+                window.alert(enemy.name + " has died!");
+                
+                // award player money for winning
+                playerInfo.money = playerInfo.money + 20;
 
-        // generate random damage value based on players attack power
-        var damage = randomNumber(enemy.attack-3, enemy.attack);
-        playerInfo.health = Math.max(0, playerInfo.health - damage);
-        console.log(enemy.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining.");
+                break;
+            } else {
+                    window.alert(enemy.name + " still has " + enemy.health + " health left.");
+                }  
+        } // end of players turn
+        else {  
+            // it is NOT the players turn, then subtract the damage from the enemy robot
+            console.log("It is " + enemy.name + "'s turn!");
+            // generate random damage value based on players attack power
+            var damage = randomNumber(enemy.attack-3, enemy.attack);
+            playerInfo.health = Math.max(0, playerInfo.health - damage);
+            console.log(enemy.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining.");
 
-        // check player's health
-        if (playerInfo.health <= 0) {
-            window.alert(playerInfo.name + " has died!");
-            break;
-        } else {
-                window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
-            }
+            // check player's health
+            if (playerInfo.health <= 0) {
+                window.alert(playerInfo.name + " has died!");
+                break;
+            } else {
+                    window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
+                }
+        } // end of enemies turn
+
+        // switch the turn order for the next round
+        isPlayerTurn = !isPlayerTurn;
+
     } //end of while loop
 }; //end of fight function
 
